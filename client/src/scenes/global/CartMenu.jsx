@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,20 +20,20 @@ const FlexBox = styled(Box)`
   align-items: center;
 `;
 
+const modalRoot = document.getElementById("modal");
+
 const CartMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((store) => store.cart.cart);
-  const isCartOpen = useSelector((store) => store.cart.isCartOpen);
 
   const totalPrice = cart.reduce((total, item) => {
     return total + item.count * item.attributes.price;
   }, 0);
 
-  return (
+  return ReactDOM.createPortal(
     // OVERLAY
     <Box
-      display={isCartOpen ? "block" : "none"}
       position="fixed"
       backgroundColor="rgba(0, 0, 0, 0.4)"
       zIndex={10}
@@ -135,8 +136,8 @@ const CartMenu = () => {
                 p: "20px 40px",
                 m: "20px 0",
                 "&:hover": {
-                  backgroundColor: shades.primary[300]
-                }
+                  backgroundColor: shades.primary[300],
+                },
               }}
               onClick={() => {
                 navigate("/checkout");
@@ -148,7 +149,8 @@ const CartMenu = () => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Box>,
+    modalRoot
   );
 };
 

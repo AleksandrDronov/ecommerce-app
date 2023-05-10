@@ -1,10 +1,7 @@
+import { Typography } from "@mui/material";
 
 const Home = () => {
-  return (
-    <div>
-      Home
-    </div>
-  )
+  return <Typography variant="subtitle2">123</Typography>;
 };
 
 export default Home;

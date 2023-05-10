@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./scenes/home/Home";
 import ItemDetails from "./scenes/itemDetail/ItemDetails";
@@ -18,20 +19,20 @@ const ScrollToTop = () => {
 };
 
 function App() {
+  const isCartOpen = useSelector((store) => store.cart.isCartOpen);
+
   return (
-    <div className="app">
-      <BrowserRouter>
-        <Navbar />
-        <ScrollToTop />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="item/:itemId" element={<ItemDetails />} />
-          <Route path="checkout" element={<Checkout />} />
-          <Route path="checkout/success" element={<Confirmation />} />
-        </Routes>
-        <CartMenu />
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="item/:itemId" element={<ItemDetails />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="checkout/success" element={<Confirmation />} />
+      </Routes>
+      {isCartOpen && <CartMenu />}
+    </BrowserRouter>
   );
 }
 
