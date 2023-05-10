@@ -17,6 +17,7 @@ const Navbar = () => {
 
   return (
     <Box
+      component="header"
       display="flex"
       alignItems="center"
       width="100%"
@@ -46,7 +47,7 @@ const Navbar = () => {
         >
           ECOMMER
         </Box>
-        <Box display="flex" justifyContent="space-between" columnGap="20px">
+        <Box display="flex" justifyContent="space-between" columnGap="20px" >
           <IconButton sx={{ color: "black" }}>
             <SearchOutlined />
           </IconButton>
