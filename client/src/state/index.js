@@ -14,7 +14,19 @@ const cartSlice = createSlice({
       state.items = action.payload;
     },
     addToCart(state, action) {
-      state.cart = [...state.cart, action.payload.item];
+      const isItemFound = state.cart.some(
+        (item) => item.id === action.payload.item.id
+      );
+      if (isItemFound) {
+        state.cart = state.cart.map((item) => {
+          if (item.id === action.payload.item.id) {
+            item.count = item.count + action.payload.item.count;
+          }
+          return item;
+        });
+      } else {
+        state.cart = [...state.cart, action.payload.item];
+      }
     },
     removeFromCart(state, action) {
       state.cart = state.cart.filter((item) => item.id !== action.payload.id);

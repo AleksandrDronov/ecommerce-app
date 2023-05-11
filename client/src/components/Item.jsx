@@ -15,7 +15,8 @@ const Item = ({ item, width }) => {
   const {
     palette: { neutral },
   } = useTheme();
-  const { category, price, name, image } = item;
+  
+  const { category, price, name, image } = item.attributes;
   const {
     data: {
       attributes: {
@@ -67,8 +68,11 @@ const Item = ({ item, width }) => {
             <Button
               onClick={() => dispatch(addToCart({ item: { ...item, count } }))}
               sx={{
-                backgroundColor: shades.primary[300],
+                backgroundColor: shades.primary[400],
                 color: "white",
+                "&:hover": {
+                  backgroundColor: shades.primary[300],
+                }
               }}
             >
               Add to Cart
