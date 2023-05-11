@@ -1,7 +1,11 @@
-import { Typography } from "@mui/material";
+import MainCarousel from "./MainCarousel";
 
 const Home = () => {
-  return <Typography variant="subtitle2">123</Typography>;
+  return (
+    <main className="home ">
+      <MainCarousel />
+    </main>
+  );
 };
 
 export default Home;
