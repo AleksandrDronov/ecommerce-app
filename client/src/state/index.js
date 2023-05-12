@@ -20,7 +20,7 @@ const cartSlice = createSlice({
       if (isItemFound) {
         state.cart = state.cart.map((item) => {
           if (item.id === action.payload.item.id) {
-            item.count = item.count + action.payload.item.count;
+            item.count += action.payload.item.count;
           }
           return item;
         });
