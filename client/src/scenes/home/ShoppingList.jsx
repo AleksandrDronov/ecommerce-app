@@ -69,16 +69,16 @@ const ShoppingList = () => {
         gap="20px 1.33%"
       >
         {value === "all" && items.map((item) => (
-          <Item item={item} key={`${item.name}-${item.id}`}/>
+          <Item item={item} key={`${item.attributes.name}-${item.id}`}/>
         ))}
         {value === "newArrivals" && newArrivalsItems.map((item) => (
-          <Item item={item} key={`${item.name}-${item.id}`}/>
+          <Item item={item} key={`${item.attributes.name}-${item.id}`}/>
         ))}
         {value === "bestSellers" && bestSellersItems.map((item) => (
-          <Item item={item} key={`${item.name}-${item.id}`}/>
+          <Item item={item} key={`${item.attributes.name}-${item.id}`}/>
         ))}
         {value === "topRated" && topRatedItems.map((item) => (
-          <Item item={item} key={`${item.name}-${item.id}`}/>
+          <Item item={item} key={`${item.attributes.name}-${item.id}`}/>
         ))}
       </Box>
     </Box>
