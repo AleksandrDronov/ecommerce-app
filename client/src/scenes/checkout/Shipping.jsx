@@ -24,7 +24,7 @@ const Shipping = ({
           handleChange={handleChange}
         />
       </Box>
-      <Box mb="20px">
+      <Box m="20px 0">
         <FormControlLabel
           label="Same for Shipping Address"
           control={
@@ -34,7 +34,7 @@ const Shipping = ({
               onChange={() =>
                 setFieldValue(
                   "shippingAddress.isSameAddress",
-                  !values.shippingAddress.isSameAddress
+                  !values.shippingAddress.isSameAddress,
                 )
               }
             />
@@ -43,7 +43,7 @@ const Shipping = ({
       </Box>
       {!values.shippingAddress.isSameAddress && (
         <Box>
-          <Typography sx={{ mb: "15px " }} fontSize="18px" component="h2">
+          <Typography sx={{ mb: "15px" }} fontSize="18px" component="h2">
             Shipping Information
           </Typography>
           <AddressForm
