@@ -14,7 +14,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((store) => store.cart.cart);
-  console.log(cart)
 
   return (
     <Box

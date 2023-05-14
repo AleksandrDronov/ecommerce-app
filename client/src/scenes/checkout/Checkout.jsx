@@ -6,6 +6,11 @@ import * as yup from "yup";
 import { shades } from "../../theme";
 import Shipping from "./Shipping";
 import Payment from "./Payment";
+import { loadStripe } from "@stripe/stripe-js";
+
+const stripePromise = loadStripe(
+  "pk_test_51N7fO6FFgXrBCAj0GMZbdRDZafZr7IXyrkERLWjdAtPZknuiDtOdiD8QEl9t7nhW1a6QaufNtwkpPBZbmDt295Iy00IBmePBPh"
+);
 
 const initialValues = {
   billingAddress: {
@@ -32,6 +37,10 @@ const initialValues = {
   email: "",
   phoneNumber: "",
 };
+const phoneRegExp =
+  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
+
+const emailRegExp = /^([a-z0-9_.-]+)@([a-z0-9_.-]+)\.([a-z.]{2,6})$/;
 
 const checkoutSchema = [
   // first step
@@ -81,8 +90,11 @@ const checkoutSchema = [
   }),
   // second step
   yup.object().shape({
-    email: yup.string().email("invalid email").required("required"),
-    phoneNumber: yup.string().required("required"),
+    email: yup.string().matches(emailRegExp, "Email is not valid").required("required"),
+    phoneNumber: yup
+      .string()
+      .matches(phoneRegExp, "Phone number is not valid")
+      .required("required"),
   }),
 ];
 
@@ -94,7 +106,7 @@ const Checkout = () => {
 
   const handleFormSubmit = async (values, actions) => {
     setActiveStep(activeStep + 1);
-    
+
     //copies the billing adress onto shipiing adress
     if (isFirstStep && values.shippingAddress.isSameAddress) {
       actions.setFieldValue("shippingAddress", {
@@ -102,7 +114,7 @@ const Checkout = () => {
         isSameAddress: true,
       });
     }
-    
+
     if (isSecondStep) {
       makePayment(values);
     }
@@ -110,7 +122,29 @@ const Checkout = () => {
     actions.setTouched({});
   };
 
-  async function makePayment(values) {}
+  async function makePayment(values) {
+    const stripe = await stripePromise;
+    const requestBody = {
+      userName: [values.firstName, values.lastName].join(" "),
+      email: values.email,
+      products: cart.map(({ id, count }) => ({
+        id,
+        count,
+      })),
+    };
+
+    const response = await fetch("http://localhost:1337/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+    const session = await response.json();
+
+    await stripe.redirectToCheckout({
+      sessionId: session.id
+    })
+
+  }
 
   return (
     <Box component="main" width="80%" m="100px auto">
