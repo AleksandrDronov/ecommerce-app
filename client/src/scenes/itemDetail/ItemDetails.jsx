@@ -44,6 +44,7 @@ const ItemDetails = () => {
     getItems();
   }, [itemId]); //eslint-disable-line
 
+  if (!item) return null;
 
   return (
     <Box component="main" width="80%" m="80px auto">
@@ -65,7 +66,9 @@ const ItemDetails = () => {
             <Typography>Prev Next</Typography>
           </Box>
           <Box m="65px 0 25px 0">
-            <Typography variant="h3" fontWeight="bold">{item?.attributes?.name}</Typography>
+            <Typography variant="h3" fontWeight="bold">
+              {item?.attributes?.name}
+            </Typography>
             <Typography fontWeight="bold">
               ${item?.attributes?.price}
             </Typography>
@@ -132,7 +135,9 @@ const ItemDetails = () => {
 
       {/* RELATED ITEMS */}
       <Box component="section" mt="50px" width="100%">
-        <Typography variant="h3" fontWeight="bold">Related Products</Typography>
+        <Typography variant="h3" fontWeight="bold">
+          Related Products
+        </Typography>
         <Box
           display="flex"
           mt="20px"
@@ -141,7 +146,7 @@ const ItemDetails = () => {
           justifyContent="space-betweens"
         >
           {items.slice(0, 4).map((item) => (
-            <Item item={item} key={`${item.attributes.name}-${item.id}`}/>
+            <Item item={item} key={`${item.attributes.name}-${item.id}`} />
           ))}
         </Box>
       </Box>
