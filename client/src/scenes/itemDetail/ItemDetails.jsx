@@ -55,7 +55,7 @@ const ItemDetails = () => {
             width="100%"
             height="100%"
             style={{ objectFit: "contain" }}
-            src={`${process.env.REACT_APP_BASE_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={`https://ecommerce-04p8.onrender.com${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
           />
         </Box>
         {/* ACTIONS */}
