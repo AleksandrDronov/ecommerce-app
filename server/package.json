@@ -5,7 +5,7 @@
   "description": "A Strapi application",
   "scripts": {
     "dev": "strapi develop",
-    "start": "STRAPI_ADMIN_BACKEND_URL=http://ecommerce-04p8.onrender.com HOST=0.0.0.0 NODE_ENV=production strapi start",
+    "start": "STRAPI_ADMIN_BACKEND_URL=http://ecommerce-04p8.onrender.com HOST=ecommerce-04p8.onrender NODE_ENV=production strapi start",
     "build": "strapi build",
     "strapi": "strapi"
   },
