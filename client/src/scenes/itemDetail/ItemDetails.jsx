@@ -44,6 +44,7 @@ const ItemDetails = () => {
     getItems();
   }, [itemId]); //eslint-disable-line
 
+
   return (
     <Box component="main" width="80%" m="80px auto">
       <Box component="section" display="flex" flexWrap="wrap" columnGap="40px">
