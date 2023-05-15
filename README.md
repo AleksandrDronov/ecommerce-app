@@ -1,4 +1,4 @@
-#  Онлайн-магазин
+#  Интернет-магазин
 
 [ссылка](https://eccommerce-frontend.onrender.com/)
 
