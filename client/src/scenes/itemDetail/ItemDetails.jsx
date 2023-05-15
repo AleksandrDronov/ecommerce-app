@@ -8,6 +8,7 @@ import { shades } from "../../theme";
 import { addToCart } from "../../state";
 import { useParams } from "react-router-dom";
 import Item from "../../components/Item";
+import { baseUrl } from "../../utils/url";
 
 const ItemDetails = () => {
   const dispatch = useDispatch();
@@ -23,7 +24,7 @@ const ItemDetails = () => {
 
   const getItem = async () => {
     const response = await fetch(
-      `http://localhost:1337/api/items/${itemId}?populate=image`
+      `${baseUrl}/api/items/${itemId}?populate=image`
     );
     const itemJson = await response.json();
 
@@ -32,7 +33,7 @@ const ItemDetails = () => {
 
   const getItems = async () => {
     const response = await fetch(
-      "http://localhost:1337/api/items?populate=image"
+      `${baseUrl}/api/items?populate=image`
     );
     const itemsJson = await response.json();
 
@@ -54,7 +55,7 @@ const ItemDetails = () => {
             width="100%"
             height="100%"
             style={{ objectFit: "contain" }}
-            src={`http://localhost:1337${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={`${baseUrl}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
           />
         </Box>
         {/* ACTIONS */}
