@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Typography, Tab, Tabs, useMediaQuery } from "@mui/material";
 import Item from "../../components/Item";
 import { setItems } from "../../state";
-import { baseUrl } from "../../utils/url"; 
 
 
 const ShoppingList = () => {
@@ -18,7 +17,7 @@ const ShoppingList = () => {
 
   const getItems = async () => {
     const response = await fetch(
-      `${baseUrl}/api/items?populate=image`
+      `${process.env.REACT_APP_BASE_URL}/api/items?populate=image`
     );
     const itemsJson = await response.json();
 

@@ -13,7 +13,6 @@ import {
   setIsCartOpen,
 } from "../../state";
 import { useNavigate } from "react-router-dom";
-import { baseUrl } from "../../utils/url";
 
 const FlexBox = styled(Box)`
   display: flex;
@@ -72,7 +71,7 @@ const CartMenu = () => {
                       alt={item.name}
                       width="123px"
                       height="164px"
-                      src={`${baseUrl}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                      src={`${process.env.REACT_APP_BASE_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
                     />
                   </Box>
                   <Box flex="1 1 60%">

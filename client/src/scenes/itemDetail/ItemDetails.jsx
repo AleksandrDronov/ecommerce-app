@@ -8,7 +8,6 @@ import { shades } from "../../theme";
 import { addToCart } from "../../state";
 import { useParams } from "react-router-dom";
 import Item from "../../components/Item";
-import { baseUrl } from "../../utils/url";
 
 const ItemDetails = () => {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ const ItemDetails = () => {
 
   const getItem = async () => {
     const response = await fetch(
-      `${baseUrl}/api/items/${itemId}?populate=image`
+      `${process.env.REACT_APP_BASE_URL}/api/items/${itemId}?populate=image`
     );
     const itemJson = await response.json();
 
@@ -33,7 +32,7 @@ const ItemDetails = () => {
 
   const getItems = async () => {
     const response = await fetch(
-      `${baseUrl}/api/items?populate=image`
+      `${process.env.REACT_APP_BASE_URL}/api/items?populate=image`
     );
     const itemsJson = await response.json();
 
@@ -55,7 +54,7 @@ const ItemDetails = () => {
             width="100%"
             height="100%"
             style={{ objectFit: "contain" }}
-            src={`${baseUrl}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+            src={`${process.env.REACT_APP_BASE_URL}${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
           />
         </Box>
         {/* ACTIONS */}
