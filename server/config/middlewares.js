@@ -6,7 +6,7 @@ module.exports = [
       contentSecurityPolicy: {
         useDefaults: true,
         directives: {
-          "connect-src": ["'self'", "http:", "https:"],
+          "connect-src": ["'self'", "http://ecommerce-04p8.onrender.com", "https://ecommerce-04p8.onrender.com"],
           upgradeInsecureRequests: null,
         },
       },
