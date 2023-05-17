@@ -1,4 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+export const fetchItems = createAsyncThunk(
+  "cart/fetchItems", 
+  async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}/api/items?populate=image`
+      );
+      if(!response.ok) {
+        throw new Error("Server error")
+      }
+      const itemsJson = await response.json();
+      return itemsJson.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 const initialState = {
   isCartOpen: false,
@@ -10,9 +28,6 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setItems(state, action) {
-      state.items = action.payload;
-    },
     addToCart(state, action) {
       const isItemFound = state.cart.some(
         (item) => item.id === action.payload.item.id
@@ -51,10 +66,14 @@ const cartSlice = createSlice({
       state.isCartOpen = !state.isCartOpen;
     },
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchItems.fulfilled, (state, action) => {
+      state.items = action.payload
+    })
+  }
 });
 
 export const {
-  setItems,
   addToCart,
   removeFromCart,
   increaseCount,

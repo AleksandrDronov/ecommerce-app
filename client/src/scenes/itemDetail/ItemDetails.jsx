@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { IconButton, Box, Typography, Button, Tab, Tabs } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -14,37 +14,13 @@ const ItemDetails = () => {
   const { itemId } = useParams();
   const [value, setValue] = useState("description");
   const [count, setCount] = useState(1);
-  const [item, setItem] = useState(null);
-  const [items, setItems] = useState([]);
+  const items = useSelector((store) => store.cart.items);
+
+  const item = items.find((item) => item.id === +itemId);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const getItem = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/api/items/${itemId}?populate=image`
-    );
-    const itemJson = await response.json();
-
-    setItem(itemJson.data);
-  };
-
-  const getItems = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/api/items?populate=image`
-    );
-    const itemsJson = await response.json();
-
-    setItems(itemsJson.data);
-  };
-
-  useEffect(() => {
-    getItem();
-    getItems();
-  }, [itemId]); //eslint-disable-line
-
-  if (!item) return null;
 
   return (
     <Box component="main" width="80%" m="80px auto">
@@ -52,7 +28,7 @@ const ItemDetails = () => {
         {/* IMAGES */}
         <Box flex="1 1 40%" mb="40px">
           <img
-            alt={item?.name}
+            alt={item?.attributes?.name}
             width="100%"
             height="100%"
             style={{ objectFit: "contain" }}

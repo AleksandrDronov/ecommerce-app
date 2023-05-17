@@ -7,7 +7,7 @@ import { shades } from "../theme";
 import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
 
-const Item = ({ item, width }) => {
+const Item = ({ item }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
@@ -28,7 +28,7 @@ const Item = ({ item, width }) => {
   } = image;
 
   return (
-    <Box width={width}>
+    <Box>
       <Box
         position="relative"
         onMouseOver={() => setIsHovered(true)}

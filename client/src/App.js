@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./scenes/home/Home";
 import ItemDetails from "./scenes/itemDetail/ItemDetails";
@@ -8,6 +8,7 @@ import Confirmation from "./scenes/checkout/Confirmation";
 import CartMenu from "./scenes/global/CartMenu";
 import Navbar from "./scenes/global/Navbar";
 import Footer from "./scenes/global/Footer";
+import { fetchItems } from "./state";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -21,6 +22,11 @@ const ScrollToTop = () => {
 
 function App() {
   const isCartOpen = useSelector((store) => store.cart.isCartOpen);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>

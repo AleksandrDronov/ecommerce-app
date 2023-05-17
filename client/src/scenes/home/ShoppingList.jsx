@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Box, Typography, Tab, Tabs, useMediaQuery } from "@mui/material";
 import Item from "../../components/Item";
-import { setItems } from "../../state";
-
 
 const ShoppingList = () => {
-  const dispatch = useDispatch();
   const items = useSelector((store) => store.cart.items);
   const [value, setValue] = useState("all");
   const isNonMobile = useMediaQuery("(min-width: 600px)");
@@ -14,19 +11,6 @@ const ShoppingList = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  const getItems = async () => {
-    const response = await fetch(
-      `${process.env.REACT_APP_BASE_URL}/api/items?populate=image`
-    );
-    const itemsJson = await response.json();
-
-    dispatch(setItems(itemsJson.data));
-  };
-
-  useEffect(() => {
-    getItems();
-  }, []); //eslint-disable-line
 
   const topRatedItems = items?.filter(
     (item) => item.attributes.category === "topRated"
