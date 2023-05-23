@@ -35,7 +35,7 @@ const Item = ({ item }) => {
         onMouseOut={() => setIsHovered(false)}
       >
         <img
-          alt={item.name}
+          alt={item.attributes.name}
           width="300px"
           height="400px"
           src={`${process.env.REACT_APP_BASE_URL}${url}`}
